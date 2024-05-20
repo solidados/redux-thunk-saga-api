@@ -1,23 +1,25 @@
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
-import "./App.css";
-import { addCashAction, getCashAction } from "./store/cashReducer.js";
+import { fetchCustomers } from "./store/asyncActions/customers";
+import { creditCashAction, debitCashAction } from "./store/cashReducer";
 import {
   addCustomerAction,
   removeCustomerAction,
-} from "./store/customerReducer.js";
+} from "./store/customerReducer";
+
+import "./App.css";
 
 function App() {
   const dispatch = useDispatch();
   const cash = useSelector((state) => state.cash.cash);
   const customers = useSelector((state) => state.customers.customers);
 
-  const getCash = (cash) => {
-    dispatch(getCashAction(cash));
+  const debitCash = (cash) => {
+    dispatch(debitCashAction(cash));
   };
 
-  const addCash = (cash) => {
-    dispatch(addCashAction(cash));
+  const creditCash = (cash) => {
+    dispatch(creditCashAction(cash));
   };
 
   const addCustomer = (name) => {
@@ -42,15 +44,16 @@ function App() {
       <fieldset>
         <legend className={"btn-subtitle"}>Financial operations</legend>
         <div className={"btn-wrapper"}>
-          <button onClick={() => getCash(Number(prompt()))}>Снять</button>
-          <button onClick={() => addCash(Number(prompt()))}>Внести</button>
+          <button onClick={() => debitCash(Number(prompt()))}>Debit</button>
+          <button onClick={() => creditCash(Number(prompt()))}>Credit</button>
         </div>
       </fieldset>
 
       <fieldset>
         <legend className={"btn-subtitle"}>Customer operations</legend>
         <div className={"btn-wrapper"}>
-          <button onClick={() => addCustomer(prompt())}>Добавить</button>
+          <button onClick={() => addCustomer(prompt())}>Add new</button>
+          <button onClick={() => dispatch(fetchCustomers())}>Get all</button>
         </div>
         {customers.length > 0 ? (
           <div className={"customer"}>
@@ -62,7 +65,7 @@ function App() {
           </div>
         ) : (
           <div>
-            <p className={"notice"}>Клиенты не найдены</p>
+            <p className={"notice"}>Customers not found</p>
           </div>
         )}
       </fieldset>
