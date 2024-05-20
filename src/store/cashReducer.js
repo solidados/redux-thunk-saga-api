@@ -9,14 +9,14 @@ const defaultState = {
  *
  * ```action = {type: "", payload?: ""}```
  * */
-const ADD_CASH = "ADD_CASH";
-const GET_CASH = "GET_CASH";
+const CREDIT = "CREDIT";
+const DEBIT = "DEBIT";
 
 export const cashReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case ADD_CASH:
+    case CREDIT:
       return { ...state, cash: state.cash + action.payload };
-    case GET_CASH:
+    case DEBIT:
       return { ...state, cash: state.cash - action.payload };
     default:
       return state;
@@ -26,12 +26,12 @@ export const cashReducer = (state = defaultState, action) => {
 /** Action Creator Function
  * Это простейшая функция, которая будет возвращать объект */
 
-export const addCashAction = (payload) => ({
-  type: ADD_CASH,
+export const creditCashAction = (payload) => ({
+  type: CREDIT,
   payload,
 });
 
-export const getCashAction = (payload) => ({
-  type: GET_CASH,
+export const debitCashAction = (payload) => ({
+  type: DEBIT,
   payload,
 });
