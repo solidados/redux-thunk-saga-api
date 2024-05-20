@@ -1,5 +1,3 @@
-import { createStore } from "redux";
-
 const defaultState = {
   cash: 0,
 };
@@ -12,7 +10,7 @@ const defaultState = {
  * ```action = {type: "", payload?: ""}```
  * */
 
-const reducer = (state = defaultState, action) => {
+export const cashReducer = (state = defaultState, action) => {
   switch (action.type) {
     case "ADD_CASH":
       return { ...state, cash: state.cash + action.payload };
@@ -22,14 +20,3 @@ const reducer = (state = defaultState, action) => {
       return state;
   }
 };
-
-/**
- * Store – это объект, который содержит несколько методов:
- * - `getState()` получить состояние
- * - `dispatch` изменить состояние
- * - подписаться на изменение состояний
- * Создаётся при помощи `createStore()` и принимает два параметра:
- * - `reducer`
- * - `PreloadedState`
- * */
-export const store = createStore(reducer);
