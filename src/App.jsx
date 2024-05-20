@@ -1,6 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import "./App.css";
+import { addCashAction, getCashAction } from "./store/cashReducer.js";
+import {
+  addCustomerAction,
+  removeCustomerAction,
+} from "./store/customerReducer.js";
 
 function App() {
   const dispatch = useDispatch();
@@ -8,11 +13,11 @@ function App() {
   const customers = useSelector((state) => state.customers.customers);
 
   const getCash = (cash) => {
-    dispatch({ type: "GET_CASH", payload: cash });
+    dispatch(getCashAction(cash));
   };
 
   const addCash = (cash) => {
-    dispatch({ type: "ADD_CASH", payload: cash });
+    dispatch(addCashAction(cash));
   };
 
   const addCustomer = (name) => {
@@ -20,11 +25,11 @@ function App() {
       name,
       id: uuidv4(),
     };
-    dispatch({ type: "ADD_CUSTOMER", payload: customer });
+    dispatch(addCustomerAction(customer));
   };
 
   const removeCustomer = (customer) => {
-    dispatch({ type: "REMOVE_CUSTOMERS", payload: customer.id });
+    dispatch(removeCustomerAction(customer.id));
   };
 
   return (

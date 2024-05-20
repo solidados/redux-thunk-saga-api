@@ -22,3 +22,16 @@ export const cashReducer = (state = defaultState, action) => {
       return state;
   }
 };
+
+/** Action Creator Function
+ * Это простейшая функция, которая будет возвращать объект */
+
+export const addCashAction = (payload) => ({
+  type: ADD_CASH,
+  payload,
+});
+
+export const getCashAction = (payload) => ({
+  type: GET_CASH,
+  payload,
+});

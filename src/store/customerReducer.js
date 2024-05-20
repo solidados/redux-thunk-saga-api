@@ -20,3 +20,16 @@ export const customerReducer = (state = defaultState, action) => {
       return state;
   }
 };
+
+/** Action Creator Function
+ * Это простейшая функция, которая будет возвращать объект */
+
+export const addCustomerAction = (payload) => ({
+  type: ADD_CUSTOMER,
+  payload,
+});
+
+export const removeCustomerAction = (payload) => ({
+  type: REMOVE_CUSTOMERS,
+  payload,
+});
