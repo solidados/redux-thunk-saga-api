@@ -3,13 +3,13 @@ const defaultState = {
 };
 
 const ADD_CUSTOMER = "ADD_CUSTOMER";
-const ADD_CUSTOMERS_LIST = "ADD_CUSTOMERS_LIST";
+const GET_CUSTOMERS_LIST = "GET_CUSTOMERS_LIST";
 const REMOVE_CUSTOMERS = "REMOVE_CUSTOMERS";
 
 export const customerReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case ADD_CUSTOMERS_LIST:
-      return { ...state, customers: [...state.customers, ...state.payload] };
+    case GET_CUSTOMERS_LIST:
+      return { ...state, customers: [...state.customers, ...action.payload] };
 
     case ADD_CUSTOMER:
       return { ...state, customers: [...state.customers, action.payload] };
@@ -35,7 +35,7 @@ export const addCustomerAction = (payload) => ({
 });
 
 export const addCustomersListAction = (payload) => ({
-  type: ADD_CUSTOMERS_LIST,
+  type: GET_CUSTOMERS_LIST,
   payload,
 });
 
