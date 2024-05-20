@@ -1,4 +1,5 @@
-import { createStore, combineReducers } from "redux";
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import { thunk } from "redux-thunk";
 import { cashReducer } from "./cashReducer";
 import { customerReducer } from "./customerReducer";
 import { composeWithDevTools } from "@redux-devtools/extension";
@@ -18,4 +19,7 @@ const rootReducer = combineReducers({
  * - `PreloadedState`
  * */
 
-export const index = createStore(rootReducer, composeWithDevTools());
+export const index = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(thunk)),
+);
