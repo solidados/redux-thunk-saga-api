@@ -3,7 +3,12 @@ import { v4 as uuidv4 } from "uuid";
 import { fetchCustomers } from "./store/asyncActions/customers";
 import { creditCashAction, debitCashAction } from "./store/cashReducer";
 import {
+  asyncDecrementCreator,
+  asyncIncrementCreator,
+} from "./store/countReducer.js";
+import {
   addCustomerAction,
+  clearCustomersAction,
   removeCustomerAction,
 } from "./store/customerReducer";
 
@@ -14,6 +19,8 @@ function App() {
   const cash = useSelector((state) => state.cash.cash);
   const customers = useSelector((state) => state.customers.customers);
 
+  const counter = useSelector((state) => state.counter.counter);
+
   const debitCash = (cash) => {
     dispatch(debitCashAction(cash));
   };
@@ -22,12 +29,24 @@ function App() {
     dispatch(creditCashAction(cash));
   };
 
+  const increment = () => {
+    dispatch(asyncIncrementCreator());
+  };
+
+  const decrement = () => {
+    dispatch(asyncDecrementCreator());
+  };
+
   const addCustomer = (name) => {
     const customer = {
       name,
       id: uuidv4(),
     };
     dispatch(addCustomerAction(customer));
+  };
+
+  const clearCustomers = () => {
+    dispatch(clearCustomersAction());
   };
 
   const removeCustomer = (customer) => {
@@ -50,10 +69,26 @@ function App() {
       </fieldset>
 
       <fieldset>
+        <legend className="btn-subtitle">Counter</legend>
+        <h2>{counter}</h2>
+        <div className={"btn-wrapper"}>
+          <button onClick={() => decrement()}>-</button>
+          <button onClick={() => increment()}>+</button>
+        </div>
+      </fieldset>
+
+      <fieldset>
         <legend className={"btn-subtitle"}>Customer operations</legend>
         <div className={"btn-wrapper"}>
           <button onClick={() => addCustomer(prompt())}>Add new</button>
-          <button onClick={() => dispatch(fetchCustomers())}>Get all</button>
+          <button
+            onClick={() => {
+              clearCustomers();
+              dispatch(fetchCustomers());
+            }}
+          >
+            Get all
+          </button>
         </div>
         {customers.length > 0 ? (
           <div className={"customer"}>

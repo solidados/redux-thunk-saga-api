@@ -1,12 +1,18 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { thunk } from "redux-thunk";
+import { countWatcher } from "../saga/countSaga.js";
 import { cashReducer } from "./cashReducer";
+import countReducer from "./countReducer.js";
 import { customerReducer } from "./customerReducer";
 import { composeWithDevTools } from "@redux-devtools/extension";
+import createMiddlewareSaga from "redux-saga";
+
+const sagaMiddleware = createMiddlewareSaga();
 
 const rootReducer = combineReducers({
   cash: cashReducer,
   customers: customerReducer,
+  counter: countReducer,
 });
 
 /**
@@ -21,5 +27,7 @@ const rootReducer = combineReducers({
 
 export const index = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(thunk)),
+  composeWithDevTools(applyMiddleware(thunk, sagaMiddleware)),
 );
+
+sagaMiddleware.run(countWatcher);
