@@ -6,9 +6,11 @@
 }
 
 .App {
+  display: flex;
   padding: 40px;
   border: 1px solid #213547;
   border-radius: 10px;
+  gap: 40px;
 }
 
 h1 {
@@ -48,6 +50,10 @@ fieldset{
   border-radius: 10px;
   border-width: 1px;
   border-color: #213547;
+}
+
+.customers{
+  text-align: left;
 }
 
 .customer {
