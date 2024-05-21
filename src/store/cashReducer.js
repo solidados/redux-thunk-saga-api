@@ -9,8 +9,8 @@ const defaultState = {
  *
  * ```action = {type: "", payload?: ""}```
  * */
-const CREDIT = "CREDIT";
-const DEBIT = "DEBIT";
+export const CREDIT = "CREDIT";
+export const DEBIT = "DEBIT";
 
 export const cashReducer = (state = defaultState, action) => {
   switch (action.type) {
@@ -23,7 +23,7 @@ export const cashReducer = (state = defaultState, action) => {
   }
 };
 
-/** Action Creator Function
+/** Action Creator Functions
  * Это простейшая функция, которая будет возвращать объект */
 
 export const creditCashAction = (payload) => ({
